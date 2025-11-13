@@ -1,0 +1,51 @@
+# Файлы Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Selenium и драйверы
+webdriver/
+drivers/
+*.log
+geckodriver*
+chromedriver*
+edgedriver*
+
+# Отчеты тестирования
+htmlcov/
+.coverage
+.coverage.*
+.pytest_cache/
+test-results/
+reports/
+*.html
+*.xml
+*.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Операционные системы
+.DS_Store
+Thumbs.db
+
+# Логи и временные файлы
+*.log
+*.tmp
+*.temp
+
+# Виртуальные окружения (добавьте свои)
+.venv/
+venv/
+env/
