@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from locators import RegistrationPageLocators, LoginPageLocators, MainPageLocators
+from urls import URLs
 
 @pytest.fixture
 def driver():
@@ -75,7 +76,7 @@ def generate_password():
 @pytest.fixture
 def registered_user(driver, generate_name, generate_email, generate_password):
     """Фикстура для предварительной регистрации пользователя"""
-    driver.get("https://stellarburgers.education-services.ru/register")
+    driver.get(URLs.REGISTER)
     
     name_input = WebDriverWait(driver, 10).until(
         EC.visibility_of_element_located(RegistrationPageLocators.NAME_INPUT)
@@ -106,7 +107,7 @@ def logged_in_user(driver, registered_user):
     email = registered_user["email"]
     password = registered_user["password"]
     
-    driver.get("https://stellarburgers.education-services.ru/login")
+    driver.get(URLs.LOGIN)
     
     email_input = WebDriverWait(driver, 10).until(
         EC.visibility_of_element_located(LoginPageLocators.EMAIL_INPUT)

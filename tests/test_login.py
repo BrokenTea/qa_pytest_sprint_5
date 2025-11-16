@@ -2,6 +2,7 @@ import pytest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from locators import MainPageLocators, LoginPageLocators, RegistrationPageLocators, PasswordRecoveryLocators
+from urls import URLs
 
 class TestLogin:
     """Класс для тестирования различных способов входа в систему"""
@@ -11,7 +12,7 @@ class TestLogin:
         email = registered_user["email"]
         password = registered_user["password"]
         
-        driver.get("https://stellarburgers.education-services.ru/")
+        driver.get(URLs.MAIN)
         
         login_button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable(MainPageLocators.LOGIN_BUTTON)
@@ -33,14 +34,13 @@ class TestLogin:
         )
         
         assert order_button.is_displayed(), "Кнопка 'Оформить заказ' не отображается после входа"
-        print("✅ Успешный вход через кнопку 'Войти в аккаунт' на главной странице")
 
     def test_login_via_personal_account_button(self, driver, registered_user):
         """Тест входа через кнопку «Личный кабинет»"""
         email = registered_user["email"]
         password = registered_user["password"]
         
-        driver.get("https://stellarburgers.education-services.ru/")
+        driver.get(URLs.MAIN)
         
         personal_account_button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable(MainPageLocators.PERSONAL_ACCOUNT_BUTTON)
@@ -62,14 +62,13 @@ class TestLogin:
         )
         
         assert order_button.is_displayed(), "Кнопка 'Оформить заказ' не отображается после входа"
-        print("✅ Успешный вход через кнопку 'Личный кабинет'")
 
     def test_login_via_registration_form(self, driver, registered_user):
         """Тест входа через кнопку в форме регистрации"""
         email = registered_user["email"]
         password = registered_user["password"]
         
-        driver.get("https://stellarburgers.education-services.ru/register")
+        driver.get(URLs.REGISTER)
         
         login_link = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable(RegistrationPageLocators.LOGIN_LINK)
@@ -91,14 +90,13 @@ class TestLogin:
         )
         
         assert order_button.is_displayed(), "Кнопка 'Оформить заказ' не отображается после входа"
-        print("✅ Успешный вход через кнопку в форме регистрации")
 
     def test_login_via_password_recovery_form(self, driver, registered_user):
         """Тест входа через кнопку в форме восстановления пароля"""
         email = registered_user["email"]
         password = registered_user["password"]
         
-        driver.get("https://stellarburgers.education-services.ru/forgot-password")
+        driver.get(URLs.FORGOT_PASSWORD)
         
         login_link = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable(PasswordRecoveryLocators.LOGIN_LINK)
@@ -120,4 +118,3 @@ class TestLogin:
         )
         
         assert order_button.is_displayed(), "Кнопка 'Оформить заказ' не отображается после входа"
-        print("✅ Успешный вход через кнопку в форме восстановления пароля")

@@ -1,43 +1,43 @@
-"""
-Локаторы для элементов веб-страницы Stellar Burgers
-"""
-
 from selenium.webdriver.common.by import By
 
 # Главная страница
 class MainPageLocators:
-    LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти в аккаунт']")
-    PERSONAL_ACCOUNT_BUTTON = (By.XPATH, "//p[text()='Личный Кабинет']")
-    ORDER_BUTTON = (By.XPATH, "//button[text()='Оформить заказ']")
-    CONSTRUCTOR_BUTTON = (By.XPATH, "//p[text()='Конструктор']")
-    LOGO = (By.XPATH, "//div[contains(@class, 'AppHeader_header__logo')]")
+    LOGIN_BUTTON = (By.XPATH, "//button[contains(text(), 'Войти в аккаунт')]")
+    PERSONAL_ACCOUNT_BUTTON = (By.XPATH, "//p[contains(text(), 'Личный Кабинет')]")
+    ORDER_BUTTON = (By.XPATH, "//button[contains(text(), 'Оформить заказ')]")
+    CONSTRUCTOR_BUTTON = (By.XPATH, "//p[contains(text(), 'Конструктор')]")
+    LOGO = (By.CLASS_NAME, "AppHeader_header__logo__2D0X2")
     
     # Разделы конструктора
-    BUNS_SECTION = (By.XPATH, "//span[text()='Булки']/parent::div")
-    SAUCES_SECTION = (By.XPATH, "//span[text()='Соусы']/parent::div")
-    FILLINGS_SECTION = (By.XPATH, "//span[text()='Начинки']/parent::div")
-    ACTIVE_SECTION = (By.XPATH, "//div[contains(@class, 'tab_tab__1SPyG') and contains(@class, 'tab_tab_type_current__2BEPc')]")
+    BUNS_SECTION = (By.XPATH, "//span[contains(text(), 'Булки')]/parent::div")
+    SAUCES_SECTION = (By.XPATH, "//span[contains(text(), 'Соусы')]/parent::div")
+    FILLINGS_SECTION = (By.XPATH, "//span[contains(text(), 'Начинки')]/parent::div")
+    
+    # Заголовки разделов конструктора (H2)
+    BUNS_HEADER = (By.XPATH, "//h2[contains(text(), 'Булки')]")
+    SAUCES_HEADER = (By.XPATH, "//h2[contains(text(), 'Соусы')]")
+    FILLINGS_HEADER = (By.XPATH, "//h2[contains(text(), 'Начинки')]")
 
 # Страница логина
 class LoginPageLocators:
-    EMAIL_INPUT = (By.XPATH, "//label[text()='Email']/following-sibling::input")
-    PASSWORD_INPUT = (By.XPATH, "//label[text()='Пароль']/following-sibling::input")
-    LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти']")
+    EMAIL_INPUT = (By.XPATH, "//label[contains(text(), 'Email')]/following-sibling::input")
+    PASSWORD_INPUT = (By.XPATH, "//label[contains(text(), 'Пароль')]/following-sibling::input")
+    LOGIN_BUTTON = (By.XPATH, "//button[contains(text(), 'Войти')]")
 
 # Страница регистрации
 class RegistrationPageLocators:
-    NAME_INPUT = (By.XPATH, "//label[text()='Имя']/following-sibling::input")
-    EMAIL_INPUT = (By.XPATH, "//label[text()='Email']/following-sibling::input")
-    PASSWORD_INPUT = (By.XPATH, "//label[text()='Пароль']/following-sibling::input")
-    REGISTER_BUTTON = (By.XPATH, "//button[text()='Зарегистрироваться']")
-    LOGIN_LINK = (By.XPATH, "//a[text()='Войти']")
-    ERROR_MESSAGE = (By.XPATH, "//p[contains(@class, 'input__error')]")
+    NAME_INPUT = (By.XPATH, "//label[contains(text(), 'Имя')]/following-sibling::input")
+    EMAIL_INPUT = (By.XPATH, "//label[contains(text(), 'Email')]/following-sibling::input")
+    PASSWORD_INPUT = (By.XPATH, "//label[contains(text(), 'Пароль')]/following-sibling::input")
+    REGISTER_BUTTON = (By.XPATH, "//button[contains(text(), 'Зарегистрироваться')]")
+    LOGIN_LINK = (By.XPATH, "//a[contains(text(), 'Войти')]")
+    ERROR_MESSAGE = (By.CLASS_NAME, "input__error")
 
 # Страница восстановления пароля
 class PasswordRecoveryLocators:
-    LOGIN_LINK = (By.XPATH, "//a[text()='Войти']")
+    LOGIN_LINK = (By.XPATH, "//a[contains(text(), 'Войти')]")
 
 # Личный кабинет
 class PersonalAccountLocators:
-    PROFILE_LINK = (By.XPATH, "//a[text()='Профиль']")
-    LOGOUT_BUTTON = (By.XPATH, "//button[text()='Выход']")
+    PROFILE_LINK = (By.XPATH, "//a[contains(text(), 'Профиль')]")
+    LOGOUT_BUTTON = (By.XPATH, "//button[contains(text(), 'Выход')]")

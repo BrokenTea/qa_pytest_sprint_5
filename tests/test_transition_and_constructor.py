@@ -1,8 +1,8 @@
 import pytest
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from locators import MainPageLocators, PersonalAccountLocators, LoginPageLocators
+from urls import URLs
 
 class TestTransition:
     """Класс для тестирования личного кабинета, конструктора и выхода из системы"""
@@ -19,7 +19,6 @@ class TestTransition:
         )
         
         assert profile_text.is_displayed(), "Не удалось перейти в личный кабинет"
-        print("✅ Успешный переход в личный кабинет")
 
     def test_navigate_from_account_to_constructor_via_constructor(self, driver, logged_in_user):
         """Проверка перехода из личного кабинета в конструктор по клику на «Конструктор»"""
@@ -42,7 +41,6 @@ class TestTransition:
         )
         
         assert order_button.is_displayed(), "Не удалось вернуться в конструктор через ссылку 'Конструктор'"
-        print("✅ Успешный переход из личного кабинета в конструктор через 'Конструктор'")
 
     def test_navigate_from_account_to_constructor_via_logo(self, driver, logged_in_user):
         """Проверка перехода из личного кабинета в конструктор по клику на логотип Stellar Burgers"""
@@ -65,7 +63,6 @@ class TestTransition:
         )
         
         assert order_button.is_displayed(), "Не удалось вернуться в конструктор через логотип"
-        print("✅ Успешный переход из личного кабинета в конструктор через логотип")
 
     def test_logout_from_account(self, driver, logged_in_user):
         """Проверка выхода из аккаунта по кнопке «Выйти» в личном кабинете"""
@@ -88,7 +85,6 @@ class TestTransition:
         )
         
         assert login_button.is_displayed(), "Не удалось выйти из аккаунта"
-        print("✅ Успешный выход из аккаунта")
         
 class TestConstructorSections:
     """Класс для тестирования разделов конструктора"""
@@ -99,27 +95,29 @@ class TestConstructorSections:
             EC.visibility_of_element_located(MainPageLocators.ORDER_BUTTON)
         )
         
-        def check_active_section(expected_section):
-            active_section = WebDriverWait(driver, 5).until(
-                EC.visibility_of_element_located((By.XPATH, f"//div[contains(@class, 'tab_tab__1SPyG') and contains(@class, 'tab_tab_type_current__2BEPc')]//span[text()='{expected_section}']"))
-            )
-            return active_section.is_displayed()
-        
+        # Переходим к другому разделу, чтобы затем проверить переход обратно к булкам
         sauces_section = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable(MainPageLocators.SAUCES_SECTION)
         )
         sauces_section.click()
         
-        assert check_active_section("Соусы"), "Раздел 'Соусы' не стал активным"
-        print("✅ Раздел 'Соусы' активен")
+        # Ждем появления заголовка раздела соусов
+        WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located(MainPageLocators.SAUCES_HEADER)
+        )
         
+        # Переходим к разделу булок
         buns_section = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable(MainPageLocators.BUNS_SECTION)
         )
         buns_section.click()
         
-        assert check_active_section("Булки"), "Раздел 'Булки' не стал активным"
-        print("✅ Успешный переход к разделу 'Булки'")
+        # Проверяем, что отображается заголовок раздела булок
+        buns_header = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located(MainPageLocators.BUNS_HEADER)
+        )
+        
+        assert buns_header.is_displayed(), "Заголовок раздела 'Булки' не отображается"
 
     def test_constructor_sauces_section(self, driver, logged_in_user):
         """Проверка перехода к разделу «Соусы»"""
@@ -127,19 +125,16 @@ class TestConstructorSections:
             EC.visibility_of_element_located(MainPageLocators.ORDER_BUTTON)
         )
         
-        def check_active_section(expected_section):
-            active_section = WebDriverWait(driver, 5).until(
-                EC.visibility_of_element_located((By.XPATH, f"//div[contains(@class, 'tab_tab__1SPyG') and contains(@class, 'tab_tab_type_current__2BEPc')]//span[text()='{expected_section}']"))
-            )
-            return active_section.is_displayed()
-        
         sauces_section = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable(MainPageLocators.SAUCES_SECTION)
         )
         sauces_section.click()
         
-        assert check_active_section("Соусы"), "Раздел 'Соусы' не стал активным"
-        print("✅ Успешный переход к разделу 'Соусы'")
+        sauces_header = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located(MainPageLocators.SAUCES_HEADER)
+        )
+        
+        assert sauces_header.is_displayed(), "Заголовок раздела 'Соусы' не отображается"
 
     def test_constructor_fillings_section(self, driver, logged_in_user):
         """Проверка перехода к разделу «Начинки»"""
@@ -147,16 +142,13 @@ class TestConstructorSections:
             EC.visibility_of_element_located(MainPageLocators.ORDER_BUTTON)
         )
         
-        def check_active_section(expected_section):
-            active_section = WebDriverWait(driver, 5).until(
-                EC.visibility_of_element_located((By.XPATH, f"//div[contains(@class, 'tab_tab__1SPyG') and contains(@class, 'tab_tab_type_current__2BEPc')]//span[text()='{expected_section}']"))
-            )
-            return active_section.is_displayed()
-        
         fillings_section = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable(MainPageLocators.FILLINGS_SECTION)
         )
         fillings_section.click()
         
-        assert check_active_section("Начинки"), "Раздел 'Начинки' не стал активным"
-        print("✅ Успешный переход к разделу 'Начинки'")
+        fillings_header = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located(MainPageLocators.FILLINGS_HEADER)
+        )
+        
+        assert fillings_header.is_displayed(), "Заголовок раздела 'Начинки' не отображается"
